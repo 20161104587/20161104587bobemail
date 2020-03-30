@@ -161,11 +161,18 @@ public class UserController {
 		    }
 		@RequestMapping("/insertaddressbook")
 		public ModelAndView insertaddressbook(Users user,HttpSession session) {
+			System.out.println("添加购物车");
+			System.out.println(user.getEmail());
+			System.out.println(user.getId());
 			ModelAndView mv=new ModelAndView();
 			Users friendinformation =usersService.checkUser(user.getEmail());
+			if(friendinformation==null) {
+				mv.setViewName("redirect:/404.jsp");
+			}else {
 			Date d =new Date();
 			usersService.insertfriend(friendinformation.getId(),user.getId(),d);
 			mv.setViewName("redirect:/addressbook.jsp");
+		}
 			return mv;
 		    }
 		@RequestMapping("/deletefirends")

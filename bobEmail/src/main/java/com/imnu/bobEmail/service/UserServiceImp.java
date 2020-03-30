@@ -69,7 +69,12 @@ public class UserServiceImp implements UsersService {
 		UsersExample usersExample =new UsersExample();
 		usersExample.createCriteria().andEmailEqualTo(accept);
 		List<Users> user =usermapper.selectByExample(usersExample);
-		return user==null?null :user.get(0);
+		if(user.isEmpty()) {
+			return null;
+		}else {
+			return user.get(0);
+		}
+		
 	}
 
 
