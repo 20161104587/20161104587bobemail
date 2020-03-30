@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imnu.bobEmail.mapper.GrouprecvMapper">
+  <resultMap id="BaseResultMap" type="com.imnu.bobEmail.pojo.Grouprecv">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mailid" jdbcType="INTEGER" property="mailid" />
+    <result column="senderid" jdbcType="INTEGER" property="senderid" />
+    <result column="recvid" jdbcType="INTEGER" property="recvid" />
+    <result column="departmentid" jdbcType="INTEGER" property="departmentid" />
+    <result column="isreply" jdbcType="INTEGER" property="isreply" />
+    <result column="sendtime" jdbcType="TIMESTAMP" property="sendtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, mailid, senderid, recvid, departmentid, isreply, sendtime
+  </sql>
+  <select id="selectByExample" parameterType="com.imnu.bobEmail.pojo.GrouprecvExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from grouprecv
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from grouprecv
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from grouprecv
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.imnu.bobEmail.pojo.GrouprecvExample">
+    delete from grouprecv
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.imnu.bobEmail.pojo.Grouprecv">
+    insert into grouprecv (id, mailid, senderid, 
+      recvid, departmentid, isreply, 
+      sendtime)
+    values (#{id,jdbcType=INTEGER}, #{mailid,jdbcType=INTEGER}, #{senderid,jdbcType=INTEGER}, 
+      #{recvid,jdbcType=INTEGER}, #{departmentid,jdbcType=INTEGER}, #{isreply,jdbcType=INTEGER}, 
+      #{sendtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.imnu.bobEmail.pojo.Grouprecv">
+    insert into grouprecv
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mailid != null">
+        mailid,
+      </if>
+      <if test="senderid != null">
+        senderid,
+      </if>
+      <if test="recvid != null">
+        recvid,
+      </if>
+      <if test="departmentid != null">
+        departmentid,
+      </if>
+      <if test="isreply != null">
+        isreply,
+      </if>
+      <if test="sendtime != null">
+        sendtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mailid != null">
+        #{mailid,jdbcType=INTEGER},
+      </if>
+      <if test="senderid != null">
+        #{senderid,jdbcType=INTEGER},
+      </if>
+      <if test="recvid != null">
+        #{recvid,jdbcType=INTEGER},
+      </if>
+      <if test="departmentid != null">
+        #{departmentid,jdbcType=INTEGER},
+      </if>
+      <if test="isreply != null">
+        #{isreply,jdbcType=INTEGER},
+      </if>
+      <if test="sendtime != null">
+        #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.imnu.bobEmail.pojo.GrouprecvExample" resultType="java.lang.Long">
+    select count(*) from grouprecv
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update grouprecv
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.mailid != null">
+        mailid = #{record.mailid,jdbcType=INTEGER},
+      </if>
+      <if test="record.senderid != null">
+        senderid = #{record.senderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.recvid != null">
+        recvid = #{record.recvid,jdbcType=INTEGER},
+      </if>
+      <if test="record.departmentid != null">
+        departmentid = #{record.departmentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.isreply != null">
+        isreply = #{record.isreply,jdbcType=INTEGER},
+      </if>
+      <if test="record.sendtime != null">
+        sendtime = #{record.sendtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update grouprecv
+    set id = #{record.id,jdbcType=INTEGER},
+      mailid = #{record.mailid,jdbcType=INTEGER},
+      senderid = #{record.senderid,jdbcType=INTEGER},
+      recvid = #{record.recvid,jdbcType=INTEGER},
+      departmentid = #{record.departmentid,jdbcType=INTEGER},
+      isreply = #{record.isreply,jdbcType=INTEGER},
+      sendtime = #{record.sendtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.imnu.bobEmail.pojo.Grouprecv">
+    update grouprecv
+    <set>
+      <if test="mailid != null">
+        mailid = #{mailid,jdbcType=INTEGER},
+      </if>
+      <if test="senderid != null">
+        senderid = #{senderid,jdbcType=INTEGER},
+      </if>
+      <if test="recvid != null">
+        recvid = #{recvid,jdbcType=INTEGER},
+      </if>
+      <if test="departmentid != null">
+        departmentid = #{departmentid,jdbcType=INTEGER},
+      </if>
+      <if test="isreply != null">
+        isreply = #{isreply,jdbcType=INTEGER},
+      </if>
+      <if test="sendtime != null">
+        sendtime = #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.imnu.bobEmail.pojo.Grouprecv">
+    update grouprecv
+    set mailid = #{mailid,jdbcType=INTEGER},
+      senderid = #{senderid,jdbcType=INTEGER},
+      recvid = #{recvid,jdbcType=INTEGER},
+      departmentid = #{departmentid,jdbcType=INTEGER},
+      isreply = #{isreply,jdbcType=INTEGER},
+      sendtime = #{sendtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

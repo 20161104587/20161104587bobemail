@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imnu.bobEmail.mapper.MailinfoMapper">
+  <resultMap id="BaseResultMap" type="com.imnu.bobEmail.pojo.Mailinfo">
+    <id column="mailid" jdbcType="INTEGER" property="mailid" />
+    <result column="senderid" jdbcType="INTEGER" property="senderid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="sendtime" jdbcType="TIMESTAMP" property="sendtime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="attname" jdbcType="VARCHAR" property="attname" />
+    <result column="importantflag" jdbcType="INTEGER" property="importantflag" />
+  </resultMap>
+ 
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.imnu.bobEmail.pojo.Mailinfo">
+    <result column="body" jdbcType="LONGVARCHAR" property="body" />
+  </resultMap>
+  <!-- //在mailinfo的基础上上了一个email 用于接收收件人的属性 -->
+    <resultMap id="selectoutbox" type="com.imnu.bobEmail.pojo.Mailinfo">
+    <id column="mailid" jdbcType="INTEGER" property="mailid" />
+    <result column="senderid" jdbcType="INTEGER" property="senderid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="sendtime" jdbcType="TIMESTAMP" property="sendtime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="attname" jdbcType="VARCHAR" property="attname" />
+    <result column="importantflag" jdbcType="INTEGER" property="importantflag" />
+    <result column="body" jdbcType="LONGVARCHAR" property="body" />
+    <result column="email" jdbcType="VARCHAR" property="recvemail" />
+  </resultMap>
+   <!-- // 在mailinfo的基础上加了一个readfalg 用于判断 邮件是否被阅读 -->
+      <resultMap id="selectinbox" type="com.imnu.bobEmail.pojo.Mailinfo">
+    <id column="mailid" jdbcType="INTEGER" property="mailid" />
+    <result column="senderid" jdbcType="INTEGER" property="senderid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="sendtime" jdbcType="TIMESTAMP" property="sendtime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="attname" jdbcType="VARCHAR" property="attname" />
+    <result column="importantflag" jdbcType="INTEGER" property="importantflag" />
+    <result column="body" jdbcType="LONGVARCHAR" property="body" />
+    <result column="email" jdbcType="VARCHAR" property="recvemail" />
+    <result column="readfalg" jdbcType="VARCHAR" property="readfalg" />
+  </resultMap>
+    <resultMap id="checkemail" type="com.imnu.bobEmail.pojo.Mailinfo">
+    <id column="mailid" jdbcType="INTEGER" property="mailid" />
+    <result column="senderid" jdbcType="INTEGER" property="senderid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="sendtime" jdbcType="TIMESTAMP" property="sendtime" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="attname" jdbcType="VARCHAR" property="attname" />
+    <result column="importantflag" jdbcType="INTEGER" property="importantflag" />
+    <result column="body" jdbcType="LONGVARCHAR" property="body" />
+    <result column="recvemail" jdbcType="VARCHAR" property="recvemail" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    mailid, senderid, title, sendtime, state, attname, importantflag
+  </sql>
+  <sql id="Blob_Column_List">
+    body
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.imnu.bobEmail.pojo.MailinfoExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mailinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.imnu.bobEmail.pojo.MailinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mailinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  
+  
+   <select id="selectoutbox" parameterType="java.lang.Integer" resultMap="selectoutbox">
+   select s.*,t.email from mailinfo s,mailrecvinfo d,users t
+where s.mailid=d.mailid and d.receiverid= t.id and s.state='1' and s.senderid = #{senderid,jdbcType=INTEGER}
+  </select>
+  
+  
+  
+     <select id="selectgroupemail" parameterType="java.lang.Integer" resultMap="selectoutbox">
+    select s.*,t.email from mailinfo s,users t
+where s.state='1' and s.importantflag='1' and s.senderid=t.id and s.senderid = #{parseInt,jdbcType=INTEGER}
+  </select>
+  
+     <select id="selectinbox" parameterType="java.lang.Integer" resultMap="selectinbox">
+select s.mailid,s.senderid,s.title,s.body,s.sendtime,s.attname,t.email,d.readfalg,d.state from mailinfo s,mailrecvinfo d,users t
+where s.mailid=d.mailid and  s.senderid=t.id and d.state='1' and d.receiverid= #{parseInt,jdbcType=INTEGER}
+
+  </select>
+ 
+      <select id="selectdraft" parameterType="java.lang.Integer" resultMap="selectoutbox">
+   select s.*,t.email from mailinfo s,mailrecvinfo d,users t
+where s.mailid=d.mailid and d.receiverid= t.id and s.state='2' and s.senderid = #{senderid,jdbcType=INTEGER}
+  </select>
+  
+     <select id="selectdustbinOutbox" parameterType="java.lang.Integer" resultMap="selectoutbox">
+   select s.*,t.email from mailinfo s,mailrecvinfo d,users t
+where s.mailid=d.mailid and d.receiverid= t.id and s.state='3' and s.senderid = #{senderid,jdbcType=INTEGER}
+  </select>
+  
+       <select id="selectdustbinInbox" parameterType="java.lang.Integer" resultMap="selectinbox">
+select s.mailid,s.senderid,s.title,s.body,s.sendtime,s.attname,t.email,d.readfalg,d.state from mailinfo s,mailrecvinfo d,users t
+where s.mailid=d.mailid and  s.senderid=t.id and d.state='3' and d.receiverid= #{parseInt,jdbcType=INTEGER}
+  </select>
+  
+
+       <select id="checkemailgroup" parameterType="java.lang.Integer" resultMap="checkemail">
+select t.email,s.* from users t,(select s.*,t.email recvemail from mailinfo s,mailrecvinfo d,users t
+where s.mailid=d.mailid and d.receiverid= #{i,jdbcType=INTEGER} and  d.receiverid =t.id) s
+where t.id=s.senderid and s.mailid= #{parseInt,jdbcType=INTEGER} 
+  </select>
+  
+     <select id="checkemail" parameterType="java.lang.Integer" resultMap="checkemail">
+select t.email,s.* from users t,(select s.*,t.email recvemail from mailinfo s,mailrecvinfo d,users t
+where s.mailid=d.mailid and d.receiverid= t.id) s
+where t.id=s.senderid and s.mailid= #{parseInt,jdbcType=INTEGER} 
+  </select>
+    <select id="selectimportflag" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+select importantflag from mailinfo
+where mailid = #{parseInt,jdbcType=INTEGER}
+  </select>
+    <select id="selectByemailid" parameterType="java.lang.Integer" resultMap="checkemail">
+select s.*,t.email from mailinfo s,users t
+where s.senderid=t.id and mailid = #{parseInt,jdbcType=INTEGER}
+  </select>
+
+ 
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mailinfo
+    where mailid = #{mailid,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectBydateString" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select *
+    from mailinfo
+    where sendtime = #{dateString,jdbcType=TIMESTAMP}
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mailinfo
+    where mailid = #{mailid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.imnu.bobEmail.pojo.MailinfoExample">
+    delete from mailinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.imnu.bobEmail.pojo.Mailinfo">
+    insert into mailinfo (mailid, senderid, title, 
+      sendtime, state, attname, 
+      importantflag, body)
+    values (#{mailid,jdbcType=INTEGER}, #{senderid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{sendtime,jdbcType=TIMESTAMP}, #{state,jdbcType=INTEGER}, #{attname,jdbcType=VARCHAR}, 
+      #{importantflag,jdbcType=INTEGER}, #{body,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.imnu.bobEmail.pojo.Mailinfo">
+    insert into mailinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mailid != null">
+        mailid,
+      </if>
+      <if test="senderid != null">
+        senderid,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="sendtime != null">
+        sendtime,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="attname != null">
+        attname,
+      </if>
+      <if test="importantflag != null">
+        importantflag,
+      </if>
+      <if test="body != null">
+        body,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mailid != null">
+        #{mailid,jdbcType=INTEGER},
+      </if>
+      <if test="senderid != null">
+        #{senderid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null">
+        #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="attname != null">
+        #{attname,jdbcType=VARCHAR},
+      </if>
+      <if test="importantflag != null">
+        #{importantflag,jdbcType=INTEGER},
+      </if>
+      <if test="body != null">
+        #{body,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.imnu.bobEmail.pojo.MailinfoExample" resultType="java.lang.Long">
+    select count(*) from mailinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mailinfo
+    <set>
+      <if test="record.mailid != null">
+        mailid = #{record.mailid,jdbcType=INTEGER},
+      </if>
+      <if test="record.senderid != null">
+        senderid = #{record.senderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendtime != null">
+        sendtime = #{record.sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.attname != null">
+        attname = #{record.attname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.importantflag != null">
+        importantflag = #{record.importantflag,jdbcType=INTEGER},
+      </if>
+      <if test="record.body != null">
+        body = #{record.body,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update mailinfo
+    set mailid = #{record.mailid,jdbcType=INTEGER},
+      senderid = #{record.senderid,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      sendtime = #{record.sendtime,jdbcType=TIMESTAMP},
+      state = #{record.state,jdbcType=INTEGER},
+      attname = #{record.attname,jdbcType=VARCHAR},
+      importantflag = #{record.importantflag,jdbcType=INTEGER},
+      body = #{record.body,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mailinfo
+    set mailid = #{record.mailid,jdbcType=INTEGER},
+      senderid = #{record.senderid,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      sendtime = #{record.sendtime,jdbcType=TIMESTAMP},
+      state = #{record.state,jdbcType=INTEGER},
+      attname = #{record.attname,jdbcType=VARCHAR},
+      importantflag = #{record.importantflag,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.imnu.bobEmail.pojo.Mailinfo">
+    update mailinfo
+    <set>
+      <if test="senderid != null">
+        senderid = #{senderid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null">
+        sendtime = #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="attname != null">
+        attname = #{attname,jdbcType=VARCHAR},
+      </if>
+      <if test="importantflag != null">
+        importantflag = #{importantflag,jdbcType=INTEGER},
+      </if>
+      <if test="body != null">
+        body = #{body,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where mailid = #{mailid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.imnu.bobEmail.pojo.Mailinfo">
+    update mailinfo
+    set senderid = #{senderid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      sendtime = #{sendtime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER},
+      attname = #{attname,jdbcType=VARCHAR},
+      importantflag = #{importantflag,jdbcType=INTEGER},
+      body = #{body,jdbcType=LONGVARCHAR}
+    where mailid = #{mailid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.imnu.bobEmail.pojo.Mailinfo">
+    update mailinfo
+    set senderid = #{senderid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      sendtime = #{sendtime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER},
+      attname = #{attname,jdbcType=VARCHAR},
+      importantflag = #{importantflag,jdbcType=INTEGER}
+    where mailid = #{mailid,jdbcType=INTEGER}
+  </update>
+</mapper>
