@@ -175,9 +175,9 @@
               正文
             </div>
             <div class="am-u-sm-10">
-           <input type="hidden" name="body1" value="${updateemail.body }" id="body1">
+           <input type="hidden" name="body1" value="${updateemail.body}" id="body1">            
               <script id="editor" type="text/plain" style="width:800px;height:500px;"></script>
-               <textarea  id="body" name="body" style="display: none"></textarea>           
+            <textarea  id="body" name="body" style="display: none"></textarea>
             </div>
           </div>
           
