@@ -55,6 +55,7 @@ function del(friendsid,userid,obj){
 	}
 	}
 
+
 </script>
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
@@ -167,7 +168,7 @@ function del(friendsid,userid,obj){
               <td>${inlist.deprole}</td>
              <td>
      <button type="button" class="am-btn am-btn-default am-btn-xs am-text-danger" onclick="del(${inlist.id},${User.id},this);"><span class="am-icon-trash-o"></span> 删除</button>
-     
+   <a href="${pageContext.request.contextPath}/userController/tiaozhuan.do?email=${inlist.email}" target="_Self">发送邮件</a>
               </td>
             </tr>
             </c:forEach>

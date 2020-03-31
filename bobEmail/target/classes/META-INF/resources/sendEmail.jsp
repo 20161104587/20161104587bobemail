@@ -28,6 +28,7 @@
   以获得更好的体验！</p>
 <![endif]-->
 <script type="text/javascript">
+
     function submitsave(){
     	alert("发送成功");
         document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
@@ -45,8 +46,9 @@
         $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。                
 
         
-//get.Content() 函数可以获得你所编辑的内容的html代码
-    }
+
+    
+   
     
     
    </script>
@@ -172,7 +174,7 @@
               收件人
             </div>
             <div class="am-u-sm-4 col-end">
-              <input type="email" class="am-input-sm" name="accept">
+              <input type="email" class="am-input-sm" name="accept" value="${email }">
             </div>
              <div class="am-u-sm-6">*必填，不可重复</div>
           </div>

@@ -184,6 +184,14 @@ public class UserController {
 			return mv;
 		    }
 		
+		@RequestMapping("/tiaozhuan")
+		public ModelAndView tiaozhuan(String email,HttpSession session) {
+			ModelAndView mv=new ModelAndView();
+			session.setAttribute("email", email);
+			mv.setViewName("redirect:/sendEmail.jsp");
+			return mv;
+		    }
+		
 		@RequestMapping("/alluser")
 		public ModelAndView  alluser(String userid,String depid,HttpSession session) {
 			ModelAndView mv=new ModelAndView();
