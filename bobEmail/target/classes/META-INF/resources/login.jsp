@@ -41,7 +41,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- main -->
 <div class="w3layouts-main"> 
 	<div class="bg-layer">
-		<h1>Slide Login form</h1>
+		<h1>企业内部邮箱管理系统</h1>
 		<div class="header-main">
 			<div class="main-icon">
 				<span class="fa fa-eercast"></span>
@@ -57,26 +57,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<input type="password" placeholder="Password" required="" name="pwd"/>
 					</div>
 					<div class="login-check">
-						 <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i> Keep me logged in</label>
+						 <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i> 记住密码</label>
 					</div>
 					<div class="bottom">
-						<button class="btn">sign in</button>
+						<button class="btn">登录</button>
 					</div>
 					<div class="links">
-						<p><a href="#">Forgot Password?</a></p>
-						<p class="right"><a href="resgiter.jsp">New User? Register</a></p>
+						<p><a href="#">忘记密码?</a></p>
+						<p class="right"><a href="resgiter.jsp">新用户? 注册</a></p>
 						<div class="clear"></div>
 					</div>
 				</form>	
 			</div>
-			<div class="social">
-				<ul>
-					<li>or login using : </li>
-					<li><a href="#" class="facebook"><span class="fa fa-facebook"></span></a></li>
-					<li><a href="#" class="twitter"><span class="fa fa-twitter"></span></a></li>
-					<li><a href="#" class="google"><span class="fa fa-google-plus"></span></a></li>
-				</ul>
-			</div>
+			
 		</div>
 		
 		<!-- copyright -->

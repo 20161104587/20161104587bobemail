@@ -23,10 +23,7 @@
     
 </head>
 <body>
-<!--[if lte IE 9]>
-<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-  以获得更好的体验！</p>
-<![endif]-->
+
 <script type="text/javascript">
 
     function submitsave(){
@@ -44,13 +41,7 @@
         alert("保存成功");
         $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=draft");
         $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。                
-
         
-
-    
-   
-    
-    
    </script>
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
@@ -123,21 +114,9 @@
           <li><a href="${pageContext.request.contextPath}/userController/checkuser.do?userrole=${User.isadmin}"><span class="am-icon-th"></span>查看修改用户<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
           <li><a href="insertpeople.jsp"><span class="am-icon-th"></span>添加用户<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
         </ul>
+         <li><a href="#"><span class="am-icon-sign-out"></span> 注销</a></li>
       </li>
-
-    <div class="am-panel am-panel-default admin-sidebar-panel">
-      <div class="am-panel-bd">
-        <p><span class="am-icon-bookmark"></span> 公告</p>
-        <p>时光静好，与君语；细水流年，与君同。—— Amaze UI</p>
-      </div>
-    </div>
-
-    <div class="am-panel am-panel-default admin-sidebar-panel">
-      <div class="am-panel-bd">
-        <p><span class="am-icon-tag"></span> wiki</p>
-        <p>Welcome to the Amaze UI wiki!</p>
-      </div>
-    </div>
+      
   </div>
   <!-- sidebar end -->
 

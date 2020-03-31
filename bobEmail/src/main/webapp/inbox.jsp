@@ -19,10 +19,7 @@
   <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
-<!--[if lte IE 9]>
-<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-  以获得更好的体验！</p>
-<![endif]-->
+
 <script type="text/javascript">
 function del(emailid,userid,obj){
 	//var b=document.getElementById('ti').value
@@ -79,7 +76,7 @@ function reply(emailid,userid){
 </script>
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
-    <strong>Amaze</strong> <small>后台管理模板</small>
+    <strong>Bobemail</strong> <small>企业内部邮箱管理系统</small>
   </div>
 
   <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
@@ -149,24 +146,11 @@ function reply(emailid,userid){
           <li><a href="insertpeople.jsp"><span class="am-icon-th"></span>添加用户<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
         </ul>
       </li>
-      <li><a href="admin-table.html"><span class="am-icon-table"></span> 表格</a></li>
-      <li><a href="admin-form.html"><span class="am-icon-pencil-square-o"></span> 表单</a></li>
+      
       <li><a href="#"><span class="am-icon-sign-out"></span> 注销</a></li>
     </ul>
 
-    <div class="am-panel am-panel-default admin-sidebar-panel">
-      <div class="am-panel-bd">
-        <p><span class="am-icon-bookmark"></span> 公告</p>
-        <p>时光静好，与君语；细水流年，与君同。—— Amaze</p>
-      </div>
-    </div>
-
-    <div class="am-panel am-panel-default admin-sidebar-panel">
-      <div class="am-panel-bd">
-        <p><span class="am-icon-tag"></span> wiki</p>
-        <p>Welcome to the Amaze wiki!</p>
-      </div>
-    </div>
+  
   </div>
   <!-- sidebar end -->
 
