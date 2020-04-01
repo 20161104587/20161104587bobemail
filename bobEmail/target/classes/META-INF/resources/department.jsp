@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Amaze后台管理系统模板HTML 表格页面 - cssmoban</title>
+  <title>查看编辑部门</title>
   <meta name="description" content="这是一个 table 页面">
   <meta name="keywords" content="table">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -19,10 +19,7 @@
   <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
-<!--[if lte IE 9]>
-<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
-  以获得更好的体验！</p>
-<![endif]-->
+
 <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript">
 function del(depid,obj){
@@ -58,7 +55,7 @@ function del(depid,obj){
 </script>
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
-    <strong>Amaze</strong> <small>后台管理模板</small>
+    <strong>Bobemail</strong> <small>企业内部邮箱管理系统</small>
   </div>
 
   <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
@@ -85,7 +82,7 @@ function del(depid,obj){
 
 <div class="am-cf admin-main">
   <!-- sidebar start -->
-   <div class="admin-sidebar">
+     <div class="admin-sidebar">
     <ul class="am-list admin-sidebar-list">
       <li><a href="index.jsp"><span class="am-icon-home"></span> 首页</a></li>
       <li class="admin-parent">
@@ -96,16 +93,16 @@ function del(depid,obj){
       </li>
       <li class="admin-parent">
         <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-file"></span> 邮件操作 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
+        <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
           <li><a href="sendEmail.jsp" class="am-cf"><span class="am-icon-check"></span>新邮件</a></li>
           <li><a href="${pageContext.request.contextPath}/emailController/outbox.do?senderid=${User.id}"><span class="am-icon-puzzle-piece"></span>发件箱</a></li>
-          <li><a href="${pageContext.request.contextPath}/emailController/inbox.do?recvid=${User.id}"><span class="am-icon-th"></span>收件箱<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+          <li><a href="${pageContext.request.contextPath}/emailController/inbox.do?recvid=${User.id}"><span class="am-icon-th"></span>收件箱<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
           <li><a href="${pageContext.request.contextPath}/emailController/draft.do?userid=${User.id}"><span class="am-icon-calendar"></span>草稿箱</a></li>
           <li><a href="${pageContext.request.contextPath}/emailController/selectdustbin.do?userid=${User.id}"><span class="am-icon-bug"></span> 垃圾箱</a></li>
         </ul>
       </li>
       
-     <li class="admin-parent">
+      <li class="admin-parent">
         <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><span class="am-icon-file"></span> 通讯录 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav2">
           <li><a href="${pageContext.request.contextPath}/userController/addressbook.do?userid=${User.id}" class="am-cf"><span class="am-icon-check"></span>我的通讯录</a></li>
@@ -113,39 +110,24 @@ function del(depid,obj){
         </ul>
       </li>
        <li class="admin-parent">
-        <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><span class="am-icon-file"></span>邮件群发操作 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-        <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav2">
+        <a class="am-cf" data-am-collapse="{target: '#collapse-nav3'}"><span class="am-icon-file"></span>邮件群发操作 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+        <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav3">
           <li><a href="${pageContext.request.contextPath}/userController/alluser.do?userid=${User.id}&depid=${User.deparmentid}"><span class="am-icon-th"></span>邮件群发<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
           <li><a href="${pageContext.request.contextPath}/emailController/groupemail.do?userid=${User.id}"><span class="am-icon-th"></span>群发邮件回复汇检<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
         </ul>
       </li>
           <li class="admin-parent">
-        <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><span class="am-icon-file"></span>系统管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-        <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav2">
+        <a class="am-cf" data-am-collapse="{target: '#collapse-nav4'}"><span class="am-icon-file"></span>系统管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+        <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav4">
           <li><a href="${pageContext.request.contextPath}/userController/checkdepartment.do?userrole=${User.isadmin}"><span class="am-icon-th"></span>查看编辑部门<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
           <li><a href="insertdepartment.jsp"><span class="am-icon-th"></span>添加部门<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
           <li><a href="${pageContext.request.contextPath}/userController/checkuser.do?userrole=${User.isadmin}"><span class="am-icon-th"></span>查看修改用户<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
           <li><a href="insertpeople.jsp"><span class="am-icon-th"></span>添加用户<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
         </ul>
       </li>
-      <li><a href="admin-table.html"><span class="am-icon-table"></span> 表格</a></li>
-      <li><a href="admin-form.html"><span class="am-icon-pencil-square-o"></span> 表单</a></li>
       <li><a href="#"><span class="am-icon-sign-out"></span> 注销</a></li>
     </ul>
 
-    <div class="am-panel am-panel-default admin-sidebar-panel">
-      <div class="am-panel-bd">
-        <p><span class="am-icon-bookmark"></span> 公告</p>
-        <p>时光静好，与君语；细水流年，与君同。—— Amaze</p>
-      </div>
-    </div>
-
-    <div class="am-panel am-panel-default admin-sidebar-panel">
-      <div class="am-panel-bd">
-        <p><span class="am-icon-tag"></span> wiki</p>
-        <p>Welcome to the Amaze wiki!</p>
-      </div>
-    </div>
   </div>
   <!-- sidebar end -->
 
@@ -210,7 +192,7 @@ function del(depid,obj){
 
 <footer>
   <hr>
-  <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+  
 </footer>
 
 <!--[if lt IE 9]>

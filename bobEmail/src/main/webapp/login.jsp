@@ -74,7 +74,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		
 		<!-- copyright -->
 		<div class="copyright">
-			<p>Â© 2019 Slide Login Form . All rights reserved | Design by <a href="" target="_blank">bobEmail</a></p>
+			
 		</div>
 		<!-- //copyright --> 
 	</div>

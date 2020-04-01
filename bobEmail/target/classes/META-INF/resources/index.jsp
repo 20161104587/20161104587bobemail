@@ -276,7 +276,7 @@ $(function(){
 
 <footer>
   <hr>
-  <p class="am-padding-left">© 2019 AllMobilize, Inc. Licensed under MIT license.</p>
+ 
 </footer>
 
 <!--[if lt IE 9]>
@@ -293,4 +293,5 @@ $(function(){
 <!--<![endif]-->
 <script src="assets/js/app.js"></script>
 </body>
+
 </html>
