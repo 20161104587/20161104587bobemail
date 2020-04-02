@@ -9,7 +9,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
-<title>Slide Login Form Flat Responsive Widget Template :: w3layouts</title>
+<title>注册</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,7 +53,7 @@ r;
 <!-- main -->
 <div class="w3layouts-main"> 
 	<div class="bg-layer">
-		<h1>Slide Login form</h1>
+		<h1>企业内部邮箱管理系统</h1>
 		<div class="header-main">
 			<div class="main-icon">
 				<span class="fa fa-eercast"></span>
@@ -88,27 +88,20 @@ r;
 					</div>
 		
 					<div class="bottom">
-						<button class="btn">sign up</button>
+						<button class="btn">注册</button>
 					</div>
 					<div class="links">
-						<p class="right"><a href="login.jsp">login</a></p>
+						<p class="right"><a href="login.jsp">登录</a></p>
 						<div class="clear"></div>
 					</div>
 				</form>	
 			</div>
-			<div class="social">
-				<ul>
-					<li>or login using : </li>
-					<li><a href="#" class="facebook"><span class="fa fa-facebook"></span></a></li>
-					<li><a href="#" class="twitter"><span class="fa fa-twitter"></span></a></li>
-					<li><a href="#" class="google"><span class="fa fa-google-plus"></span></a></li>
-				</ul>
-			</div>
+			
 		</div>
 		
 		<!-- copyright -->
 		<div class="copyright">
-			<p>Â© 2019 Slide Login Form . All rights reserved | Design by <a href="http://w3layouts.com/" target="_blank">W3layouts</a></p>
+			
 		</div>
 		<!-- //copyright --> 
 	</div>
