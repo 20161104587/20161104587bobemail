@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
      <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+     
+     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,24 +25,27 @@
     
 </head>
 <body>
-
+<script src="assets/js/jquery.min.js"></script>
 <script type="text/javascript">
 
-    function submitsave(){
-    	alert("发送成功");
-        document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
-        alert("成功啦");
-        $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=save");
-        $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。  
-        
-//get.Content() 函数可以获得你所编辑的内容的html代码
-    }
-    function submitdraft(){
-    	alert("存为草稿");
-        document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
-        alert("保存成功");
-        $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=draft");
-        $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。                
+$().ready(function() {
+	   //其他jquery代码
+	   submitsave = function(){
+	   alert("发送成功");
+	         document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
+	         alert("成功啦");
+	         $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=save");
+	         $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。  
+	   }
+	   submitdraft = function(){
+	   alert("存为草稿");
+	         document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
+	         alert("保存成功");
+	         $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=draft");
+	         $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。          
+	   }
+	   
+	 });                
         
    </script>
 <header class="am-topbar admin-header">
@@ -216,7 +221,7 @@
 var ue = UE.getEditor('editor'); 
 </script> 
 
-<script src="assets/js/jquery.min.js"></script>
+
 <script src="assets/js/amazeui.min.js"></script>
 <!--<![endif]-->
 <script src="assets/js/app.js"></script>
