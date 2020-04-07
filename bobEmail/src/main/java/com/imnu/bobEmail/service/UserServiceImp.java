@@ -325,6 +325,21 @@ public class UserServiceImp implements UsersService {
 	}
 
 
+	@Override
+	public int checkresemail(String email) {
+		// TODO Auto-generated method stub
+		UsersExample userexample= new UsersExample();
+		userexample.createCriteria().andEmailEqualTo(email);
+		List<Users> user=usermapper.selectByExample(userexample);
+		if(user.isEmpty()) {
+			return 1;
+		}else {
+			return 2;
+		}
+		
+	}
+
+
 
 
 

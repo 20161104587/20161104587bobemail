@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
@@ -53,11 +54,25 @@ public class UserController {
 	//注册
 	@RequestMapping("/resgiter")
 	public ModelAndView resgiter(Users user) {
-
-		ModelAndView mv=new ModelAndView();
-		usersService.resgiter(user);
-		mv.setViewName("redirect:/login.jsp");
+		ModelAndView mv=new ModelAndView();  
+	    	usersService.resgiter(user);
+	    	mv.setViewName("redirect:/login.jsp");	
 		return mv;
+	    }
+	//验证email
+	@RequestMapping("/checkresemail")
+	public void checkemail(String email,HttpServletResponse response) throws IOException {
+		System.out.println(email);
+		 PrintWriter out = response.getWriter();
+		  int rs=	usersService.checkresemail(email);
+		  if(rs==1) {
+			  out.print(1);
+		    	
+		    }else {
+		    	out.print(2);
+	
+		    }
+		  
 	    }
 	//更新个人信息
 	@RequestMapping("/updateuserinformation")
@@ -187,8 +202,9 @@ public class UserController {
 		@RequestMapping("/tiaozhuan")
 		public ModelAndView tiaozhuan(String email,HttpSession session) {
 			ModelAndView mv=new ModelAndView();
-			session.setAttribute("email", email);
-			mv.setViewName("redirect:/sendEmail.jsp");
+			mv.addObject("email", email);
+			//session.setAttribute("email", email);
+			mv.setViewName("sendEmail");
 			return mv;
 		    }
 		

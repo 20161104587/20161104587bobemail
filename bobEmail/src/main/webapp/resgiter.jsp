@@ -9,12 +9,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
-<title>注册</title>
+<title>注册用户</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="Slide Login Form template Responsive, Login form web template, Flat Pricing tables, Flat Drop downs Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
-
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
 	 <script>
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
@@ -24,8 +24,31 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             window.scrollTo(0, 1);
         }
         
-        
+        function checkEmail() {
+     	 $.ajax({
+     		type:"POST",
+     		url:'${pageContext.request.contextPath}/userController/checkresemail.do',
+     		data:{
+     			'email':$("#cemail").val(),
+     			},
+     		dataType : 'text',
+     		success:function(data){	
+     	
+     			  //window.location.reload();//删除无刷新    重要	
+     			  if(data==1){
+     			  $('#checkemail').html("<font color='green'>用户名合法</font>");
+     			  }else if(data == 2){
+     				 $('#checkemail').html("<font color='red'>用户名存在</font>");
+					//document.getElementById("spanid").innerText="输入框不能为空!";
+				}
+     			  //window.location.href="${pageContext.request.contextPath}/emailController/outbox.do?senderid=${User.id}";
+     		},
+     		error:function(data){
+     		}
+     		});
+        }
     </script>
+    
 
 	<!-- Custom Theme files -->
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -62,7 +85,8 @@ r;
 				<form action="${pageContext.request.contextPath}/userController/resgiter.do" method="post">
 					<div class="icon1">
 						<span class="fa fa-user"></span>
-						<input type="email" placeholder="Email Address"  name="email"/>
+						<input type="email" placeholder="Email Address"  name="email"  id="cemail" onblur="checkEmail()" />
+						<span id="checkemail"></span>
 					</div>
 					<div class="icon1">
 						<span class="fa fa-user"></span>
@@ -91,7 +115,7 @@ r;
 						<button class="btn">注册</button>
 					</div>
 					<div class="links">
-						<p class="right"><a href="login.jsp">登录</a></p>
+						<p class="right"><a href="login.jsp">已注册？去登录</a></p>
 						<div class="clear"></div>
 					</div>
 				</form>	

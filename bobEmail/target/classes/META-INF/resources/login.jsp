@@ -10,7 +10,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
 <head>
-<title>Slide Login Form Flat Responsive Widget Template :: w3layouts</title>
+<title>企业内部邮箱管理系统</title>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -63,8 +63,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<button class="btn">登录</button>
 					</div>
 					<div class="links">
-						<p><a href="#">忘记密码?</a></p>
-						<p class="right"><a href="resgiter.jsp">新用户? 注册</a></p>
+						<p><a href="#">忘记密码</a></p>
+						<p class="right"><a href="resgiter.jsp">新用户？去注册</a></p>
 						<div class="clear"></div>
 					</div>
 				</form>	

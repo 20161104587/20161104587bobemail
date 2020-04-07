@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
      <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-     
-     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,39 +12,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp" />
-  <link rel="icon" type="image/png" href="assets/i/favicon.png">
-  <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
+  <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath}/assets/i/app-icon72x72@2x.png">
   <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-  <link rel="stylesheet" href="assets/css/amazeui.min.css"/>
-  <link rel="stylesheet" href="assets/css/admin.css">
-   <script type="text/javascript" charset="utf-8" src="ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="ueditor/ueditor.all.min.js"> </script>
-    <script type="text/javascript" charset="utf-8" src="ueditor/lang/zh-cn/zh-cn.js"></script>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin.css">
+   <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+   <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/ueditor/ueditor.all.min.js"> </script>
+   <script type="text/javascript" charset="utf-8" src="${pageContext.request.contextPath}/ueditor/lang/zh-cn/zh-cn.js"></script>
     
 </head>
 <body>
-<script src="assets/js/jquery.min.js"></script>
-<script type="text/javascript">
 
+<script src="${pageContext.request.contextPath}/assets/js/jquery.min.js"></script>
+<script type="text/javascript">
 $().ready(function() {
-	   //其他jquery代码
-	   submitsave = function(){
-	   alert("发送成功");
-	         document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
-	         alert("成功啦");
-	         $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=save");
-	         $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。  
-	   }
-	   submitdraft = function(){
-	   alert("存为草稿");
-	         document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
-	         alert("保存成功");
-	         $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=draft");
-	         $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。          
-	   }
-	   
-	 });                
+	  //其他jquery代码
+	  submitsave = function(){
+			alert("发送成功");
+	        document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
+	        alert("成功啦");
+	        $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=save");
+	        $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。  
+	  }
+	  submitdraft = function(){
+			alert("存为草稿");
+	        document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
+	        alert("保存成功");
+	        $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=draft");
+	        $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。          
+	  }
+	  
+	});
+  /*   function submitsave(){
+    	alert("发送成功");
+        document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
+        alert("成功啦");
+        $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=save");
+        $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。  
         
+//get.Content() 函数可以获得你所编辑的内容的html代码
+    }
+    function submitdraft(){
+    	alert("存为草稿");
+        document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
+        alert("保存成功");
+        $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=draft");
+        $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。                 */
    </script>
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
@@ -58,34 +70,20 @@ $().ready(function() {
  <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
 
     <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
-     <li><a href="javascript:;">当前用户：  ${User.id}</a></li>
+     <li><a href="javascript:;">当前用户：  ${User.truename}</a></li>
       <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">5</span></a></li>
-      <li class="am-dropdown" data-am-dropdown>
-        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
-          <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
-        </a>
-        <ul class="am-dropdown-content">
-          <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
-          <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
-          <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
-        </ul>
-      </li>
-      <li><a href="login.jsp" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">退出</span></a></li>
+      
+      <li><a href="${pageContext.request.contextPath}/login.jsp" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">退出</span></a></li>
     </ul>
   </div>
 </header>
 
 <div class="am-cf admin-main">
   <!-- sidebar start -->
-    <div class="admin-sidebar">
+  <div class="admin-sidebar">
     <ul class="am-list admin-sidebar-list">
       <li><a href="index.jsp"><span class="am-icon-home"></span> 首页</a></li>
-      <li class="admin-parent">
-        <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 页面模块 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
-        <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
-          <li><a href="admin-user.jsp" class="am-cf"><span class="am-icon-check"></span> 修改密码<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>  
-        </ul>
-      </li>
+
       <li class="admin-parent">
         <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-file"></span> 邮件操作 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
@@ -120,9 +118,14 @@ $().ready(function() {
           <li><a href="insertpeople.jsp"><span class="am-icon-th"></span>添加用户<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
         </ul>
       </li>
+      <li class="admin-parent">
+        <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-file"></span> 页面模块 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+        <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav">
+          <li><a href="admin-user.jsp" class="am-cf"><span class="am-icon-check"></span> 修改密码<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>  
+        </ul>
+      </li>
       <li><a href="#"><span class="am-icon-sign-out"></span> 注销</a></li>
     </ul>
-
   </div>
   <!-- sidebar end -->
 
@@ -194,9 +197,8 @@ $().ready(function() {
   </div>
    <div class="am-margin">
    <!--  <button type="button" class="am-btn am-btn-primary am-btn-xs">存入草稿</button> -->
-    
-      <button type="button" onclick="submitdraft();" class="am-btn am-btn-primary am-btn-xs">存入草稿</button>
-      <button type="button" onclick="submitsave();" class="am-btn am-btn-primary am-btn-xs">提交保存</button>
+      <button type="button"  class="am-btn am-btn-primary am-btn-xs" onclick="submitdraft();" >存入草稿</button>
+      <button type="button"  class="am-btn am-btn-primary am-btn-xs" onclick="submitsave();">提交保存</button>
    
   </div>
 </div>
@@ -221,9 +223,8 @@ $().ready(function() {
 var ue = UE.getEditor('editor'); 
 </script> 
 
-
-<script src="assets/js/amazeui.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/amazeui.min.js"></script>
 <!--<![endif]-->
-<script src="assets/js/app.js"></script>
+<script src="${pageContext.request.contextPath}/assets/js/app.js"></script>
 </body>
 </html>

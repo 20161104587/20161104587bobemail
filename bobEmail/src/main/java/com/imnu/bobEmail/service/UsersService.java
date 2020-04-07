@@ -77,6 +77,8 @@ public interface UsersService {
 	void insertpeople(Users user);
 
 	int selectcoutread(Integer id);
+
+	int checkresemail(String email);
 	
 	
 
