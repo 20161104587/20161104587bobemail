@@ -154,18 +154,7 @@ function send(emailid,userid,obj){
       <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">草稿箱</strong> / <small>Table</small></div>
     </div>
 
-    <div class="am-g">
-      <div class="am-u-md-6 am-cf">
-          <div class="am-btn-toolbar am-fl">
-            <div class="am-btn-group am-btn-group-xs">
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-save"></span> 保存</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-archive"></span> 审核</button>
-              <button type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
-            </div>
-          </div>
-      </div>
-    </div>
+    
     
 
     <div class="am-g">

@@ -25,7 +25,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             window.scrollTo(0, 1);
         }
     </script>
-
+<!-- 页面加载的时候添加一个定时器，0秒之后执行hideURLbar函数。hideURLbar函数将页面滚动至坐标（0,1） -->
 	<!-- Custom Theme files -->
 	<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
 	<link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all" />
@@ -47,6 +47,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<span class="fa fa-eercast"></span>
 			</div>
 			<div class="header-left-bottom">
+			
+			
 				<form action="${pageContext.request.contextPath}/userController/login.do" method="post">
 					<div class="icon1">
 						<span class="fa fa-user"></span>

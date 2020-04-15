@@ -74,6 +74,7 @@
   <sql id="Base_Column_List">
     id, truename, pwd, sex, tel, email, deparmentid, isadmin
   </sql>
+  
   <select id="selectByExample" parameterType="com.imnu.bobEmail.pojo.UsersExample" resultMap="BaseResultMap">
     select
     <if test="distinct">

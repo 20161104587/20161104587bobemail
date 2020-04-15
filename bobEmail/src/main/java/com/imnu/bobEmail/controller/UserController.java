@@ -56,7 +56,7 @@ public class UserController {
 	public ModelAndView resgiter(Users user) {
 		ModelAndView mv=new ModelAndView();  
 	    	usersService.resgiter(user);
-	    	mv.setViewName("redirect:/login.jsp");	
+	    	mv.setViewName("redirect:/login.jsp");
 		return mv;
 	    }
 	//验证email

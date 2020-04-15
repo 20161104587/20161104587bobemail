@@ -54,6 +54,8 @@ public class UserServiceImp implements UsersService {
 		UsersExample usersExample =new UsersExample();
 		usersExample.createCriteria().andIdEqualTo(user.getId());
 		usermapper.updateByExampleSelective(user, usersExample);	
+		
+		
 	}
 
 
@@ -67,7 +69,7 @@ public class UserServiceImp implements UsersService {
 	public Users checkUser(String accept) {
 		// TODO Auto-generated method stub
 		UsersExample usersExample =new UsersExample();
-		usersExample.createCriteria().andEmailEqualTo(accept);
+		usersExample.createCriteria().andEmailEqualTo(accept);//where email='547329654@QQ.COM'
 		List<Users> user =usermapper.selectByExample(usersExample);
 		if(user.isEmpty()) {
 			return null;
@@ -75,6 +77,7 @@ public class UserServiceImp implements UsersService {
 			return user.get(0);
 		}
 		
+
 	}
 
 

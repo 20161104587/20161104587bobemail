@@ -123,7 +123,7 @@
   <!-- 发送邮件 -->
   <div class="admin-content">
     <div class="am-cf am-padding">
-      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">发送邮件</strong> / <small>Personal information</small></div>
+      <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">查看邮件</strong> / <small></small></div>
     </div>
 
     <hr/>

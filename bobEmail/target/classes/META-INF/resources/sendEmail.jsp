@@ -30,7 +30,7 @@ $().ready(function() {
 	  //其他jquery代码
 	  submitsave = function(){
 			alert("发送成功");
-	        document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
+	        document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();/* 获取富文本框中的所有数据 */
 	        alert("成功啦");
 	        $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=save");
 	        $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。  
@@ -44,21 +44,7 @@ $().ready(function() {
 	  }
 	  
 	});
-  /*   function submitsave(){
-    	alert("发送成功");
-        document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
-        alert("成功啦");
-        $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=save");
-        $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。  
-        
-//get.Content() 函数可以获得你所编辑的内容的html代码
-    }
-    function submitdraft(){
-    	alert("存为草稿");
-        document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
-        alert("保存成功");
-        $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=draft");
-        $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。                 */
+
    </script>
 <header class="am-topbar admin-header">
   <div class="am-topbar-brand">
@@ -139,14 +125,17 @@ $().ready(function() {
 
    <div class="am-tabs am-margin" data-am-tabs>
     <ul class="am-tabs-nav am-nav am-nav-tabs">
-      <li><a href="#tab2">详细描述</a></li>
+      <li><a href="#tab2">写邮件</a></li>
     </ul>
 
     <div class="am-tabs-bd">
       
-
       <div class="am-tab-panel am-fade" id="tab2">
-        <form action=""  method="post" id="loginForm1" enctype="multipart/form-data" >
+      
+      
+      
+      
+        <form action=""  method="post" id="loginForm1" enctype="multipart/form-data" ><!-- action中写url地址 -->
           <div class="am-g am-margin-top">
             <div class="am-u-sm-2 am-text-right">
               邮件主题

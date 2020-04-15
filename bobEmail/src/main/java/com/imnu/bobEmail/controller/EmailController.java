@@ -67,7 +67,7 @@ public class EmailController {
 		usersService.sendEmail(mailinfo);
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String dateString = formatter.format(d);	
+		String dateString = formatter.format(d);
 		//根据发送时间将mailinfo的 id取出 存入到收件表
 		Mailinfo mail=usersService.checkEmail(dateString);
 	

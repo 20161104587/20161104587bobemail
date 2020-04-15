@@ -180,6 +180,8 @@ $(function () {
       
 
       <div class="am-tab-panel am-fade" id="tab2">
+      
+      
         <form action=""  method="post" id="loginForm1" enctype="multipart/form-data" >
           <div class="am-g am-margin-top">
             <div class="am-u-sm-2 am-text-right">
@@ -234,6 +236,7 @@ $(function () {
       
      <!-- //员工列表发送  -->
             <div class="am-tab-panel am-fade" id="tab3">
+            
         <form action=""  method="post" id="loginForm2" enctype="multipart/form-data" >
           <div class="am-g am-margin-top">
             <div class="am-u-sm-2 am-text-right">
