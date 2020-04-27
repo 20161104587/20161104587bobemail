@@ -369,5 +369,13 @@ public class UserController {
 			return mv;
 		}
 		
+		@RequestMapping("/quit")
+		public ModelAndView  quit(HttpSession session) {
+			ModelAndView mv=new ModelAndView();
+			session.invalidate();
+			mv.setViewName("redirect:/login.jsp");
+			return mv;
+		}
+		
 		
 }

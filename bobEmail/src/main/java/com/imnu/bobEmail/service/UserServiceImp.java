@@ -44,6 +44,7 @@ public class UserServiceImp implements UsersService {
 		UsersExample userExample = new UsersExample();
 		userExample.createCriteria().andEmailEqualTo(email).andPwdEqualTo(pwd);
 		List<Users> user=usermapper.selectByExample(userExample);
+	    
 		return user==null?null :user.get(0);
 		
 	}

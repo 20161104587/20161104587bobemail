@@ -211,12 +211,7 @@ where s.senderid=t.id and mailid = #{parseInt,jdbcType=INTEGER}
     where mailid = #{mailid,jdbcType=INTEGER}
   </select>
   
-    <select id="selectBydateString" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-    select *
-    from mailinfo
-    where sendtime = #{dateString,jdbcType=TIMESTAMP}
-  </select>
-  
+
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from mailinfo
@@ -404,4 +399,11 @@ where s.senderid=t.id and mailid = #{parseInt,jdbcType=INTEGER}
       importantflag = #{importantflag,jdbcType=INTEGER}
     where mailid = #{mailid,jdbcType=INTEGER}
   </update>
+  
+      <select id="selectBydateString" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select *
+    from mailinfo
+    where sendtime = #{dateString,jdbcType=TIMESTAMP}
+  </select>
+  
 </mapper>
