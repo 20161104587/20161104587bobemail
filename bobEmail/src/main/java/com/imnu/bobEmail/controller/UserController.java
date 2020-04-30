@@ -51,6 +51,15 @@ public class UserController {
 		mv.setViewName("redirect:/index.jsp");
 		return mv;
 	    }
+	//提示邮件未读信息
+	@RequestMapping("/readflag")
+	public ModelAndView readflag(String id,HttpSession session)  {
+		ModelAndView mv=new ModelAndView();
+		int countread = usersService.selectcoutread(Integer.parseInt(id));
+		session.setAttribute("countread", countread);
+		mv.setViewName("redirect:/index.jsp");
+		return mv;
+	    }
 	//注册
 	@RequestMapping("/resgiter")
 	public ModelAndView resgiter(Users user) {

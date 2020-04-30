@@ -76,7 +76,7 @@ function del(friendsid,userid,obj){
   <!-- sidebar start -->
    <div class="admin-sidebar">
     <ul class="am-list admin-sidebar-list">
-      <li><a href="index.jsp"><span class="am-icon-home"></span> 首页</a></li>
+      <li><a href="${pageContext.request.contextPath}/userController/readflag.do?id=${User.id}"><span class="am-icon-home"></span> 首页</a></li>
 
       <li class="admin-parent">
         <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-file"></span> 邮件操作 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>

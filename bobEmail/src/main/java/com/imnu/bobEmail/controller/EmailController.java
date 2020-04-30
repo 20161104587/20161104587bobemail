@@ -94,25 +94,28 @@ public class EmailController {
 		mailinfo.setAttname(uploadMultipartFile(file));
 		mailinfo.setImportantflag(1); //测试 1 为群发
 		usersService.sendEmail(mailinfo);
-			List<Integer> list=usersService.checkbumenPeople(Integer.parseInt(bumen));
-			for (int i=0;i<list.size();i++) {
-				if(list.get(i)==mailinfo.getSenderid()) {
-					i=i+1;
+		String[] split = bumen.split(",");
+			for (String s:split) {
+				List<Integer> list=usersService.checkbumenPeople(Integer.parseInt(s));
+				for (int i=0;i<list.size();i++) {
+					if(list.get(i)==mailinfo.getSenderid()) {
+						break;
+					}
+					//存入收件箱表 
+					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					String dateString = formatter.format(d);	
+					//根据发送时间将mailinfo的 id取出 存入到收件表
+					Mailinfo mail=usersService.checkEmail(dateString);
+					//System.out.println(mail.getBody());
+					//赋值数据 插入到 recvinfo中 
+					Mailrecvinfo  mailrecvinfo =new Mailrecvinfo();
+					mailrecvinfo.setMailid(mail.getMailid());
+					mailrecvinfo.setReceiverid(list.get(i));
+					mailrecvinfo.setState(1); //recvinfo表中 static 1为正常
+					mailrecvinfo.setReadfalg(1);//recvinfo 阅读标志 1为 未读
+					mailrecvinfoService.saveEmail(mailrecvinfo);
+					//departmentService.insertgrouprecv(mail.getMailid(),mailinfo.getSenderid(),list.get(i),d);	
 				}
-				//存入收件箱表 
-				SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String dateString = formatter.format(d);	
-				//根据发送时间将mailinfo的 id取出 存入到收件表
-				Mailinfo mail=usersService.checkEmail(dateString);
-				//System.out.println(mail.getBody());
-				//赋值数据 插入到 recvinfo中 
-				Mailrecvinfo  mailrecvinfo =new Mailrecvinfo();
-				mailrecvinfo.setMailid(mail.getMailid());
-				mailrecvinfo.setReceiverid(list.get(i));
-				mailrecvinfo.setState(1); //recvinfo表中 static 1为正常
-				mailrecvinfo.setReadfalg(1);//recvinfo 阅读标志 1为 未读
-				mailrecvinfoService.saveEmail(mailrecvinfo);
-				//departmentService.insertgrouprecv(mail.getMailid(),mailinfo.getSenderid(),list.get(i),d);	
 			}			
 		//}
 		System.out.println("giao!!!!!!!!!");

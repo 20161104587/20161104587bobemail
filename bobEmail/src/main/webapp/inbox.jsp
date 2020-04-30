@@ -87,7 +87,7 @@ function reply(emailid,userid){
      <li><a href="javascript:;">当前用户：  ${User.truename}</a></li>
       <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">5</span></a></li>
       
-      <li><a href="login.jsp" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">退出</span></a></li>
+      <li><a href="${pageContext.request.contextPath}/userController/quit.do" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">退出</span></a></li>
     </ul>
   </div>
 </header>
@@ -96,7 +96,7 @@ function reply(emailid,userid){
   <!-- sidebar start -->
    <div class="admin-sidebar">
     <ul class="am-list admin-sidebar-list">
-      <li><a href="index.jsp"><span class="am-icon-home"></span> 首页</a></li>
+      <li><a href="${pageContext.request.contextPath}/userController/readflag.do?id=${User.id}"><span class="am-icon-home"></span> 首页</a></li>
 
       <li class="admin-parent">
         <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-file"></span> 邮件操作 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
