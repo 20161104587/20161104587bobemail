@@ -33,34 +33,15 @@ $(function () {
     $("#organId").fSelect();
     $("#organId1").fSelect();
 });
-    function submitsave(){
-    	alert("发送成功");
-        document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
-        alert("成功啦");
-        $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=save");
-        $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。  
-        
-//get.Content() 函数可以获得你所编辑的内容的html代码
-    }
-    function submitdraft(){
-    	alert("存为草稿");
-        document.getElementById('body').innerHTML=UE.getEditor('editor').getContent();
-        alert("保存成功");
-        $("#loginForm1").attr("action", "${pageContext.request.contextPath}/emailController/send.do?type=draft");
-        $("#loginForm1").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。。                
-
-        
-//get.Content() 函数可以获得你所编辑的内容的html代码
-    }//部门发送
+ 
     function getMultiRadioSelectedUuids_util(){
     	const options = document.querySelector('#organId').options
     	const selectedValueArr = []  
     	for (let i = 0; i < options.length; i++) {     
-    		// 如果该option被选中，则将它的value存入数组        
     		if (options[i].selected) {           
     			selectedValueArr.push(options[i].value)      
     			}   
-    		}     // 如果后端需要字符串形式，比如逗号分隔  
+    		} 
     		var selectedValueStr = selectedValueArr.join(',')
     		alert(selectedValueStr);
     		alert("发送发送");
@@ -75,11 +56,10 @@ $(function () {
     	const options = document.querySelector('#organId1').options
     	const selectedValueArr = []  
     	for (let i = 0; i < options.length; i++) {     
-    		// 如果该option被选中，则将它的value存入数组        
     		if (options[i].selected) {           
     			selectedValueArr.push(options[i].value)      
     			}   
-    		}     // 如果后端需要字符串形式，比如逗号分隔  
+    		}
     		var selectedValueStr = selectedValueArr.join(',')
     		alert(selectedValueStr);
     		alert("发送发送");
@@ -88,7 +68,7 @@ $(function () {
             alert(body);
             alert("赋值成功");
             $("#loginForm2").attr("action", "${pageContext.request.contextPath}/emailController/senduserpeople.do?body1="+body+"&people="+selectedValueStr);
-            $("#loginForm2").submit();//或者jQuery方式,二选一，不过现在已经没啥项目不引入jQuery了吧。。
+            $("#loginForm2").submit();
             alert("群发成功拉")
     	
     };  
@@ -104,9 +84,8 @@ $(function () {
 
     <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
      <li><a href="javascript:;">当前用户：  ${User.truename}</a></li>
-      <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">5</span></a></li>
-      
-      <li><a href="login.jsp" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">退出</span></a></li>
+      <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">${countread}</span></a></li>
+      <li><a href="${pageContext.request.contextPath}/userController/quit.do" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">退出</span></a></li>
     </ul>
   </div>
 </header>
@@ -115,14 +94,14 @@ $(function () {
   <!-- sidebar start -->
   <div class="admin-sidebar">
     <ul class="am-list admin-sidebar-list">
-      <li><a href="index.jsp"><span class="am-icon-home"></span> 首页</a></li>
+      <li><a href="${pageContext.request.contextPath}/userController/readflag.do?id=${User.id}"><span class="am-icon-home"></span> 首页</a></li>
 
       <li class="admin-parent">
         <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-file"></span> 邮件操作 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
           <li><a href="sendEmail.jsp" class="am-cf"><span class="am-icon-check"></span>新邮件</a></li>
           <li><a href="${pageContext.request.contextPath}/emailController/outbox.do?senderid=${User.id}"><span class="am-icon-puzzle-piece"></span>发件箱</a></li>
-          <li><a href="${pageContext.request.contextPath}/emailController/inbox.do?recvid=${User.id}"><span class="am-icon-th"></span>收件箱<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
+          <li><a href="${pageContext.request.contextPath}/emailController/inbox.do?recvid=${User.id}"><span class="am-icon-th"></span>收件箱<span class="am-badge am-badge-secondary am-margin-right am-fr">${countread}</span></a></li>
           <li><a href="${pageContext.request.contextPath}/emailController/draft.do?userid=${User.id}"><span class="am-icon-calendar"></span>草稿箱</a></li>
           <li><a href="${pageContext.request.contextPath}/emailController/selectdustbin.do?userid=${User.id}"><span class="am-icon-bug"></span> 垃圾箱</a></li>
         </ul>
@@ -138,16 +117,16 @@ $(function () {
        <li class="admin-parent">
         <a class="am-cf" data-am-collapse="{target: '#collapse-nav3'}"><span class="am-icon-file"></span>邮件群发操作 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav3">
-          <li><a href="${pageContext.request.contextPath}/userController/alluser.do?userid=${User.id}&depid=${User.deparmentid}"><span class="am-icon-th"></span>邮件群发<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+          <li><a href="${pageContext.request.contextPath}/userController/alluser.do?userid=${User.id}&depid=${User.deparmentid}"><span class="am-icon-th"></span>邮件群发<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
           <li><a href="${pageContext.request.contextPath}/emailController/groupemail.do?userid=${User.id}"><span class="am-icon-th"></span>群发邮件回复汇检<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
         </ul>
       </li>
           <li class="admin-parent">
         <a class="am-cf" data-am-collapse="{target: '#collapse-nav4'}"><span class="am-icon-file"></span>系统管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav4">
-          <li><a href="${pageContext.request.contextPath}/userController/checkdepartment.do?userrole=${User.isadmin}"><span class="am-icon-th"></span>查看编辑部门<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+          <li><a href="${pageContext.request.contextPath}/userController/checkdepartment.do?userrole=${User.isadmin}"><span class="am-icon-th"></span>查看编辑部门<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
           <li><a href="insertdepartment.jsp"><span class="am-icon-th"></span>添加部门<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
-          <li><a href="${pageContext.request.contextPath}/userController/checkuser.do?userrole=${User.isadmin}"><span class="am-icon-th"></span>查看修改用户<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+          <li><a href="${pageContext.request.contextPath}/userController/checkuser.do?userrole=${User.isadmin}"><span class="am-icon-th"></span>查看修改用户<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
           <li><a href="insertpeople.jsp"><span class="am-icon-th"></span>添加用户<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
         </ul>
       </li>
@@ -162,7 +141,7 @@ $(function () {
   </div>
   <!-- sidebar end -->
 
-  <!-- 发送邮件 -->
+  
   <div class="admin-content">
     <div class="am-cf am-padding">
       <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">发送邮件</strong> / <small>Personal information</small></div>
@@ -234,7 +213,7 @@ $(function () {
               <button type="button" onclick="getMultiRadioSelectedUuids_util();" class="am-btn am-btn-primary am-btn-xs">发送</button>
       </div>
       
-     <!-- //员工列表发送  -->
+
             <div class="am-tab-panel am-fade" id="tab3">
             
         <form action=""  method="post" id="loginForm2" enctype="multipart/form-data" >

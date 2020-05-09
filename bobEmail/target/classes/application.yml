@@ -1,8 +1,6 @@
 server:  port: 9090  servlet:    context-path: /bobEmail
-#文件上传的路径
-web.upload-path: E:/mvc/uploads/#file: # staticAccessPath: /uploads/**  #uploadFolder: E:/mvc/uploads/
-#静态资源的路径
+web.upload-path: E:/mvc/uploads/
 spring: 
   resources: 
     static-locations:  file:${web.upload-path}
-  #页面跳转    thymeleaf:    cache: false    enabled: false  servlet:    multipart:      max-file-size: 2MB  #单个文件的大小      max-request-size: 10MB  #批量文件上传的大小   datasource:    username: root    password: root    url: jdbc:mysql://localhost:3306/email?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8    driver-class-name: com.mysql.jdbc.Driver    type: com.alibaba.druid.pool.DruidDataSource    mvc:      static-path-pattern: /**  mybatis:  mapper-locations: classpath:com/imnu/bobEmail/mapper/*.xml  type-aliases-package: com.imnu.bobEmail.pojo#showSql# pagehelper   pagehelper:    helperDialect: mysql    reasonable: true    supportMethodsArguments: true    params: count=countSql
+  thymeleaf:    cache: false    enabled: false  servlet:    multipart:      max-file-size: 2MB        max-request-size: 10MB    datasource:    username: root    password: root    url: jdbc:mysql://localhost:3306/email?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8    driver-class-name: com.mysql.jdbc.Driver    type: com.alibaba.druid.pool.DruidDataSource    mvc:      static-path-pattern: /**  mybatis:  mapper-locations: classpath:com/imnu/bobEmail/mapper/*.xml  type-aliases-package: com.imnu.bobEmail.pojo 

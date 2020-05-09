@@ -22,7 +22,6 @@
 
 <script type="text/javascript">
 function del(emailid,userid,obj){
-	//var b=document.getElementById('ti').value
 	var del=window.confirm("您确定要删除吗？");
 	var type ="draft";
 	if(del){
@@ -34,13 +33,9 @@ function del(emailid,userid,obj){
 		  'type': type},
 	dataType:'text',
 	success:function(){	
-		  //window.location.reload();//删除无刷新    重要	
 		  alert("成功拉");
-		  //window.location.href="${pageContext.request.contextPath}/emailController/outbox.do?senderid=${User.id}";
 	},
 	error:function(){
-		//$(id).parent().parent().remove();
-		 // window.location.reload();//删除无刷新    重要
 		 alert("你去哪拉");
 		var tr=obj.parentNode.parentNode;
 		var tbody=tr.parentNode;
@@ -51,8 +46,7 @@ function del(emailid,userid,obj){
 	}
 	
 function send(emailid,userid,obj){
-	//var b=document.getElementById('ti').value
-	var del=window.confirm("您确定要要发送吗？");
+	var del=window.confirm("您确定要发送吗？");
 	if(del){
 	$.ajax({
 	type:"POST",
@@ -61,14 +55,10 @@ function send(emailid,userid,obj){
 		  'userid':userid},
 	dataType:'text',
 	success:function(){	
-		  //window.location.reload();//删除无刷新    重要	
 		  alert("成功拉");
-		  //window.location.href="${pageContext.request.contextPath}/emailController/outbox.do?senderid=${User.id}";
 	},
 	error:function(){
-		//$(id).parent().parent().remove();
-		 // window.location.reload();//删除无刷新    重要
-		 alert("giao!");
+		 alert("成功");
 			var tr=obj.parentNode.parentNode;
 			var tbody=tr.parentNode;
 			tbody.removeChild(tr);	
@@ -89,9 +79,8 @@ function send(emailid,userid,obj){
 
     <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
      <li><a href="javascript:;">当前用户：  ${User.truename}</a></li>
-      <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">5</span></a></li>
-      
-      <li><a href="login.jsp" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">退出</span></a></li>
+      <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">${countread}</span></a></li>
+      <li><a href="${pageContext.request.contextPath}/userController/quit.do" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">退出</span></a></li>
     </ul>
   </div>
 </header>
@@ -107,7 +96,7 @@ function send(emailid,userid,obj){
         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
           <li><a href="sendEmail.jsp" class="am-cf"><span class="am-icon-check"></span>新邮件</a></li>
           <li><a href="${pageContext.request.contextPath}/emailController/outbox.do?senderid=${User.id}"><span class="am-icon-puzzle-piece"></span>发件箱</a></li>
-          <li><a href="${pageContext.request.contextPath}/emailController/inbox.do?recvid=${User.id}"><span class="am-icon-th"></span>收件箱<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
+          <li><a href="${pageContext.request.contextPath}/emailController/inbox.do?recvid=${User.id}"><span class="am-icon-th"></span>收件箱<span class="am-badge am-badge-secondary am-margin-right am-fr">${countread}</span></a></li>
           <li><a href="${pageContext.request.contextPath}/emailController/draft.do?userid=${User.id}"><span class="am-icon-calendar"></span>草稿箱</a></li>
           <li><a href="${pageContext.request.contextPath}/emailController/selectdustbin.do?userid=${User.id}"><span class="am-icon-bug"></span> 垃圾箱</a></li>
         </ul>
@@ -123,16 +112,16 @@ function send(emailid,userid,obj){
        <li class="admin-parent">
         <a class="am-cf" data-am-collapse="{target: '#collapse-nav3'}"><span class="am-icon-file"></span>邮件群发操作 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav3">
-          <li><a href="${pageContext.request.contextPath}/userController/alluser.do?userid=${User.id}&depid=${User.deparmentid}"><span class="am-icon-th"></span>邮件群发<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+          <li><a href="${pageContext.request.contextPath}/userController/alluser.do?userid=${User.id}&depid=${User.deparmentid}"><span class="am-icon-th"></span>邮件群发<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
           <li><a href="${pageContext.request.contextPath}/emailController/groupemail.do?userid=${User.id}"><span class="am-icon-th"></span>群发邮件回复汇检<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
         </ul>
       </li>
           <li class="admin-parent">
         <a class="am-cf" data-am-collapse="{target: '#collapse-nav4'}"><span class="am-icon-file"></span>系统管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
         <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav4">
-          <li><a href="${pageContext.request.contextPath}/userController/checkdepartment.do?userrole=${User.isadmin}"><span class="am-icon-th"></span>查看编辑部门<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+          <li><a href="${pageContext.request.contextPath}/userController/checkdepartment.do?userrole=${User.isadmin}"><span class="am-icon-th"></span>查看编辑部门<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
           <li><a href="insertdepartment.jsp"><span class="am-icon-th"></span>添加部门<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
-          <li><a href="${pageContext.request.contextPath}/userController/checkuser.do?userrole=${User.isadmin}"><span class="am-icon-th"></span>查看修改用户<span class="am-badge am-badge-secondary am-margin-right am-fr">24</span></a></li>
+          <li><a href="${pageContext.request.contextPath}/userController/checkuser.do?userrole=${User.isadmin}"><span class="am-icon-th"></span>查看修改用户<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
           <li><a href="insertpeople.jsp"><span class="am-icon-th"></span>添加用户<span class="am-badge am-badge-secondary am-margin-right am-fr"></span></a></li>
         </ul>
       </li>
@@ -167,7 +156,7 @@ function send(emailid,userid,obj){
               </tr>
           </thead>
           <tbody>
-         <!--  foreach循环 -->
+         
          	<c:forEach items="${draft }" var="inlist" >
             <tr>
               <td><a href="#">${inlist.recvemail}</a></td>
@@ -183,16 +172,10 @@ function send(emailid,userid,obj){
           </tbody>
         </table>
           <div class="am-cf">
-  共 15 条记录
+
   <div class="am-fr">
     <ul class="am-pagination">
-      <li class="am-disabled"><a href="#">«</a></li>
-      <li class="am-active"><a href="#">1</a></li>
-      <li><a href="#">2</a></li>
-      <li><a href="#">3</a></li>
-      <li><a href="#">4</a></li>
-      <li><a href="#">5</a></li>
-      <li><a href="#">»</a></li>
+      
     </ul>
   </div>
 </div>

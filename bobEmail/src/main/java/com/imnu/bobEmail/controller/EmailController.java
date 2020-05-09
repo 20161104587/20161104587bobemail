@@ -50,7 +50,6 @@ public class EmailController {
 			System.out.println("发送完毕");
 			mv.setViewName("redirect:/index.jsp");
 		}else if(type.equals("draft")) {
-			//state为2 时 是草稿箱
 			int state =2;
 			email(mailinfo,file,state,d,acceptinformation.getId());
 			System.out.println("草稿箱完毕");
@@ -62,63 +61,50 @@ public class EmailController {
 	public void email(Mailinfo mailinfo,MultipartFile file,int state,Date d,int id) {
 		mailinfo.setState(state); 
 		mailinfo.setSendtime(d);
-		//文件上传
 		mailinfo.setAttname(uploadMultipartFile(file));
 		usersService.sendEmail(mailinfo);
-		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateString = formatter.format(d);
-		//根据发送时间将mailinfo的 id取出 存入到收件表
 		Mailinfo mail=usersService.checkEmail(dateString);
-	
-		//System.out.println(mail.getBody());
-		//赋值数据 插入到 recvinfo中 
 		Mailrecvinfo  mailrecvinfo =new Mailrecvinfo();
 		mailrecvinfo.setMailid(mail.getMailid());
 		mailrecvinfo.setReceiverid(id);
-		mailrecvinfo.setState(state); //recvinfo表中 static 1为正常
-		mailrecvinfo.setReadfalg(1);//recvinfo 阅读标志 1为 未读
+		mailrecvinfo.setState(state); 
+		mailrecvinfo.setReadfalg(1);
 		mailrecvinfoService.saveEmail(mailrecvinfo);
 	}
-	//部门群发
+	
 	
 	
 	@RequestMapping("/sendgroupBumen")
 	public ModelAndView sendgroupBumendo(Mailinfo mailinfo,MultipartFile file,String bumen,HttpSession session,HttpServletRequest request)  {
 		ModelAndView mv=new ModelAndView();
 		Date d =new Date();
-		//String[] split = bumen.split(",");
-	//	for (String s:split) {
 		mailinfo.setState(1); 
 		mailinfo.setSendtime(d);
 		mailinfo.setAttname(uploadMultipartFile(file));
-		mailinfo.setImportantflag(1); //测试 1 为群发
+		mailinfo.setImportantflag(1);
 		usersService.sendEmail(mailinfo);
 		String[] split = bumen.split(",");
 			for (String s:split) {
 				List<Integer> list=usersService.checkbumenPeople(Integer.parseInt(s));
 				for (int i=0;i<list.size();i++) {
 					if(list.get(i)==mailinfo.getSenderid()) {
-						break;
+						continue;
 					}
-					//存入收件箱表 
 					SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					String dateString = formatter.format(d);	
-					//根据发送时间将mailinfo的 id取出 存入到收件表
 					Mailinfo mail=usersService.checkEmail(dateString);
-					//System.out.println(mail.getBody());
-					//赋值数据 插入到 recvinfo中 
 					Mailrecvinfo  mailrecvinfo =new Mailrecvinfo();
 					mailrecvinfo.setMailid(mail.getMailid());
 					mailrecvinfo.setReceiverid(list.get(i));
-					mailrecvinfo.setState(1); //recvinfo表中 static 1为正常
-					mailrecvinfo.setReadfalg(1);//recvinfo 阅读标志 1为 未读
+					mailrecvinfo.setState(1);
+					mailrecvinfo.setReadfalg(1);
 					mailrecvinfoService.saveEmail(mailrecvinfo);
-					//departmentService.insertgrouprecv(mail.getMailid(),mailinfo.getSenderid(),list.get(i),d);	
 				}
 			}			
 		//}
-		System.out.println("giao!!!!!!!!!");
+		System.out.println("成功");
 		    mv.setViewName("redirect:/index.jsp");
 			return mv;
 	    }
@@ -131,53 +117,34 @@ public class EmailController {
 		String body1=request.getParameter("body1");
 		System.out.println("群发群发");
 		Date d =new Date();
-		//String[] split = bumen.split(",");
-	//	for (String s:split) {
 		Mailinfo mailinfo =new Mailinfo();
 		mailinfo.setState(1); 
 		mailinfo.setSendtime(d);
 		mailinfo.setAttname(uploadMultipartFile(file));
-		mailinfo.setImportantflag(1); //测试 1 为群发
+		mailinfo.setImportantflag(1);
 		mailinfo.setBody(body1);
 		mailinfo.setTitle(title);
 		mailinfo.setSenderid(Integer.parseInt(senderid));
 		usersService.sendEmail(mailinfo);
 		String[] split = people.split(",");
 		 SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-		  String dateString = formatter.format(d); //根据发送时间将mailinfo的 id取出 存入到收件表
+		  String dateString = formatter.format(d);
 		  Mailinfo  mail=usersService.checkEmail(dateString);
 			for (String s:split) {
 				if(Integer.parseInt(s)==mailinfo.getSenderid()) {
 					continue;
 				}
-				  //System.out.println(mail.getBody()); 
-				  //赋值数据 插入到 recvinfo中
 				  Mailrecvinfo mailrecvinfo =new Mailrecvinfo();
 				  mailrecvinfo.setMailid(mail.getMailid());
 				  mailrecvinfo.setReceiverid(Integer.parseInt(s));
 				  mailrecvinfo.setState(1);
-				  //recvinfo表中 static 1为正常 
 				  mailrecvinfo.setReadfalg(1);
-				  //recvinfo 阅读标志 1为 未读
 				  mailrecvinfoService.saveEmail(mailrecvinfo);
 			}
 			mv.setViewName("redirect:/index.jsp");
-		
-		  //存入收件箱表 
-		 
-		 
-				//departmentService.insertgrouprecv(mail.getMailid(),mailinfo.getSenderid(),list.get(i),d);	
-				
-		//}
-		/*
-		 * System.out.println("giao!!!!!!!!!");
-		 * System.out.println(mailinfo.getSenderid());
-		 * System.out.println(mailinfo.getBody()); System.out.println(bumen);
-		 * System.out.println();
-		 */
 			return mv;
 	    }
-	//发件箱
+	
 	@RequestMapping("/outbox")
 	public ModelAndView outbox(String senderid,HttpSession session,HttpServletRequest request)  {
 		ModelAndView mv=new ModelAndView();
@@ -188,7 +155,7 @@ public class EmailController {
 			return mv;
 	    }
 	
-	//群发邮件 发件箱
+	
 	@RequestMapping("/groupemail")
 	public ModelAndView groupemail(String userid,HttpSession session,HttpServletRequest request)  {
 		ModelAndView mv=new ModelAndView();
@@ -199,35 +166,33 @@ public class EmailController {
 			mv.setViewName("redirect:/outboxgroup.jsp");
 			return mv;
 	    }
-	//收件箱
+	
 	
 	@RequestMapping("/inbox")
 	public ModelAndView inbox(String recvid,HttpSession session,HttpServletRequest request)  {
 		ModelAndView mv=new ModelAndView();
 		    List<Mailinfo> mailinfo= usersService.selectinbox(Integer.parseInt(recvid));
-		   // int listSize = mailinfo.size(); 可统计收件箱有多少数据
 		    session.setAttribute("inbox", mailinfo);
 			mv.setViewName("redirect:/inbox.jsp");
 			return mv;
 	    }
-	//草稿箱draft
+	
 	@RequestMapping("/draft")
 	public ModelAndView draft(String userid,HttpSession session,HttpServletRequest request)  {
 		ModelAndView mv=new ModelAndView();
 		    List<Mailinfo> mailinfo= usersService.selectdraft(Integer.parseInt(userid));
-		   // int listSize = mailinfo.size(); 可统计收件箱有多少数据
 		    session.setAttribute("draft", mailinfo);
 			mv.setViewName("redirect:/draft.jsp");
 			return mv;
 	    }
-	//草稿箱发送 更新表状态为1
+	
 	@RequestMapping("/draftsendEmail")
 	public void draftsendEmail(String emailid,String userid,HttpSession session,HttpServletRequest request)  {
 		int state=1;
 		usersService.updateEmailstate(Integer.parseInt(emailid),state);
 		mailrecvinfoService.updateEmailstate(Integer.parseInt(emailid),state);
 	    }
-	//删除到垃圾箱	
+	
 	@RequestMapping("/deletefordustbin")
 	public void deletefordustbin(String emailid,String userid,String type,HttpSession session,HttpServletRequest request)  {
 	   int state =3;
@@ -244,7 +209,7 @@ public class EmailController {
 		}    
 	    }
 	
-	//垃圾箱 （发送箱、收件箱）
+	
 		@RequestMapping("/selectdustbin")
 		public ModelAndView selectdustbin(String userid,HttpSession session,HttpServletRequest request)  {
 			ModelAndView mv=new ModelAndView();
@@ -256,7 +221,7 @@ public class EmailController {
 				return mv;
 		    }
 		
-		//垃圾箱  恢复（发送箱、收件箱）
+		
 		@RequestMapping("/reduction")
 		public void reduction(String emailid,String userid,String type,HttpSession session,HttpServletRequest request)  {
 			int state=1;
@@ -266,7 +231,7 @@ public class EmailController {
 					mailrecvinfoService.updateEmailstate(Integer.parseInt(emailid),state);
 				}
 		    }
-		//回复 部门 领导问文件
+		
 		@RequestMapping("/reply")
 		public void reply(String emailid,String userid,HttpSession session,HttpServletRequest request)  {
 			mailrecvinfoService.updateEmaireadfalg(Integer.parseInt(emailid),Integer.parseInt(userid));
@@ -275,30 +240,18 @@ public class EmailController {
 	
 	@RequestMapping("/upload")
 	public String uploadMultipartFile(MultipartFile file) {
-		String filename = file.getOriginalFilename();//原始文件名		
+		String filename = file.getOriginalFilename();	
 		try {
 			File dest = new File("E:/mvc/uploads/");
 			 if (!dest.exists()) { 
 				 dest.mkdirs(); 
 	             }
-	//文件上传到路径下
 	          FileUtils.copyInputStreamToFile(file.getInputStream(), new File(dest,filename)); 
-			//保存成功
-
 			return filename;
 		} catch (Exception e) {
-			//保存失败
 			e.printStackTrace();
 		}
 		return "error";
 	}
 
-	
-
-
-	/*
-	 * ParsePosition pos = new ParsePosition(8); Date currentTime_2 =
-	 * formatter.parse(dateString, pos);
-	 */
-	
 }

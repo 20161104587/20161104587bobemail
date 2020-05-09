@@ -39,19 +39,23 @@ public class UserController {
 	 private MailrecvinfoService mailrecvinfoService;
 	 @Autowired
 	 private DepartmentService departmentService;
-	//登录
+	
 	@RequestMapping("/login")
 	public ModelAndView login(Users user,HttpSession session)  {
-
 		ModelAndView mv=new ModelAndView();
 		Users u=usersService.login(user.getEmail(),user.getPwd());
+		if(u == null) {
+			mv.setViewName("redirect:/login.jsp");
+			return mv;
+		}else {
 		int countread = usersService.selectcoutread(u.getId());
 		session.setAttribute("countread", countread);
 	    session.setAttribute("User", u);
 		mv.setViewName("redirect:/index.jsp");
 		return mv;
+		}
 	    }
-	//提示邮件未读信息
+	
 	@RequestMapping("/readflag")
 	public ModelAndView readflag(String id,HttpSession session)  {
 		ModelAndView mv=new ModelAndView();
@@ -60,7 +64,7 @@ public class UserController {
 		mv.setViewName("redirect:/index.jsp");
 		return mv;
 	    }
-	//注册
+	
 	@RequestMapping("/resgiter")
 	public ModelAndView resgiter(Users user) {
 		ModelAndView mv=new ModelAndView();  
@@ -68,7 +72,7 @@ public class UserController {
 	    	mv.setViewName("redirect:/login.jsp");
 		return mv;
 	    }
-	//验证email
+	
 	@RequestMapping("/checkresemail")
 	public void checkemail(String email,HttpServletResponse response) throws IOException {
 		System.out.println(email);
@@ -83,7 +87,7 @@ public class UserController {
 		    }
 		  
 	    }
-	//更新个人信息
+	
 	@RequestMapping("/updateuserinformation")
 	public ModelAndView updateuserinformation(Users user,HttpSession session) {
 		System.out.println("进来了");
@@ -98,17 +102,12 @@ public class UserController {
 	   @RequestMapping("/download")
 	   public void download(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		   String filename =request.getParameter("filename");
-	       //模拟文件，myfile.txt为需要下载的文件  
 		   System.out.println("下载 下载");
 		   System.out.println(filename);
 	       String path = "E:\\mvc\\uploads"+"\\"+filename;  
-	       //获取输入流  
 	       InputStream bis = new BufferedInputStream(new FileInputStream(new File(path)));
-	       //转码，免得文件名中文乱码  
 	       filename = URLEncoder.encode(filename,"UTF-8");  
-	       //设置文件下载头  
-	       response.addHeader("Content-Disposition", "attachment;filename=" + filename);    
-	       //1.设置文件ContentType类型，这样设置，会自动判断下载文件类型    
+	       response.addHeader("Content-Disposition", "attachment;filename=" + filename);
 	       response.setContentType("multipart/form-data");   
 	       BufferedOutputStream out = new BufferedOutputStream(response.getOutputStream());  
 	       int len = 0;  
@@ -119,14 +118,14 @@ public class UserController {
 	       out.close();  
 	   }
 	   
-		//查看email  收件箱子详细信息
+		
 		@RequestMapping("/checkemail")
 		public ModelAndView checkemail(String emailid,String userid,String type,HttpSession session) {
 			ModelAndView mv=new ModelAndView();
 			System.out.println(type);
 			int flag=usersService.checkemailimportflag(emailid);
 			System.out.println(flag);
-			if(flag==1) {//群发邮件
+			if(flag==1) {
 				if(type.equals("inbox")) {
 					Mailinfo email =usersService.checkemailgroup(Integer.parseInt(emailid),Integer.parseInt(userid));
 					session.setAttribute("email",email);
@@ -150,7 +149,7 @@ public class UserController {
 		}
 
 		
-		//更新 email信息 跳转页面	
+		
 		@RequestMapping("/updateemail")
 		public ModelAndView updateemail(String emailid,HttpSession session) {
 			ModelAndView mv=new ModelAndView();
@@ -159,7 +158,7 @@ public class UserController {
 			mv.setViewName("redirect:/updateemail.jsp");
 			return mv;
 		    }
-	//更新email信息  更新email
+	
 		
 		
 		@RequestMapping("/updateemmail1")
@@ -167,7 +166,6 @@ public class UserController {
 			ModelAndView mv=new ModelAndView();
 			Users acceptinformation =usersService.checkUser(mailinfo.getRecvemail());
 			usersService.updateEmail(mailinfo.getTitle(),mailinfo.getBody(),mailinfo.getAttname(),mailinfo.getMailid());
-			//由于主键文题 修改recv中的 表错误 所以 该功能在修改草稿是后 不能修改收件人的email
 			mailrecvinfoService.updateEmailinformation(mailinfo.getMailid(),acceptinformation.getId());
 			mv.setViewName("redirect:/draft.jsp");
 			return mv;
@@ -185,7 +183,7 @@ public class UserController {
 		    }
 		@RequestMapping("/insertaddressbook")
 		public ModelAndView insertaddressbook(Users user,HttpSession session) {
-			System.out.println("添加购物车");
+			System.out.println("添加联系人");
 			System.out.println(user.getEmail());
 			System.out.println(user.getId());
 			ModelAndView mv=new ModelAndView();
@@ -237,7 +235,6 @@ public class UserController {
 			return mv;
 		    }
 		
-		//
 		
 		@RequestMapping("/checkmailgroupreply")
 		public ModelAndView  checkmailgroupreply(String userid,String emailid,HttpSession session) {
@@ -245,7 +242,6 @@ public class UserController {
 			System.out.println("查看回复状态进来了");
 			System.out.println(userid);
 			List<Users> user=usersService.checkmailgroupreply(emailid);
-
 			session.setAttribute("checkmailgroupreply", user);
 			mv.setViewName("redirect:/mailgroupreply.jsp");
 			return mv;
